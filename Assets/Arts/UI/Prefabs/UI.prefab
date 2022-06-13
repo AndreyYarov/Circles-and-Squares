@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 6111957038074724441}
   - component: {fileID: 4111461847103048079}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Score-Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 4102117087976122782}
   - component: {fileID: 987607139319482862}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Path-Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 1988719991928023535}
   - component: {fileID: 972340158555253709}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Path-Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ROUTE
+  m_text: PATH
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -472,7 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3237542723550635934}
   m_Layer: 5
-  m_Name: Route-Panel
+  m_Name: Path-Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 5539233565633781102}
   - component: {fileID: 243909527050515694}
   - component: {fileID: 1997554450081070532}
+  - component: {fileID: 8762421554257768867}
   m_Layer: 5
   m_Name: GameStats
   m_TagString: Untagged
@@ -578,6 +579,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8762421554257768867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7548184037439739889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892984b105d664f4a8d4882c5da5c394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ScoreText: {fileID: 1988219500224223013}
+  m_PathText: {fileID: 972340158555253709}
 --- !u!1 &8968013007961356751
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +605,7 @@ GameObject:
   - component: {fileID: 7860807796638646118}
   - component: {fileID: 1988219500224223013}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Score-Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
