@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using Game.Events;
 
 namespace Circle
 {
@@ -15,7 +15,7 @@ namespace Circle
         private float _accelerationTime;
         private CirclePath _path;
 
-        public void SetPath(params Vector3[] corners)
+        public void SetPath(Vector3[] corners)
         {
             _path = new CirclePath(transform.position, corners);
             float d2 = m_Speed * m_Speed / m_Acceleration; //sum of acceleration and stopping paths
@@ -48,7 +48,10 @@ namespace Circle
                 }
                 else
                     p = _accelerationDistance + (_currentTime - _accelerationTime) * m_Speed;
-                transform.position = _path.GetPosition(p - _path.Position);
+
+                float delta = p - _path.Position;
+                transform.position = _path.GetPosition(delta);
+                MessageBroker.Default.Publish<ValueChangedEvent>(new PathEvent(delta));
             }
         }
 

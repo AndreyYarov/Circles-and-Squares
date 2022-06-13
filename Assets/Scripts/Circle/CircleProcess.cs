@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,14 +9,10 @@ namespace Circle
         [SerializeField] private CircleMovement m_Movement;
         [SerializeField] private Camera m_MainCamera;
         [SerializeField, Min(0.01f)] private float m_Radius;
+        [SerializeField, Min(1)] private int m_PathPixelsDistance = 10;
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Pickable"))
-            {
-                Destroy(collision.gameObject);
-            }
-        }
+        private bool dragFinger = false;
+        private List<Vector3> screenPath = new List<Vector3>();
 
         private void Update()
         {
@@ -28,7 +23,34 @@ namespace Circle
                 if (Vector3.SqrMagnitude(transform.position - target) <= m_Radius * m_Radius)
                     m_Movement.Stop();
                 else
-                    m_Movement.SetPath(target);
+                {
+                    dragFinger = true;
+                    screenPath.Add(Input.mousePosition);
+                }
+            }
+            else if (dragFinger)
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (screenPath[screenPath.Count - 1] != Input.mousePosition)
+                        screenPath.Add(Input.mousePosition);
+
+                    Vector3[] pathCorners = new Vector3[screenPath.Count];
+                    for (int i = 0; i < screenPath.Count; i++)
+                    {
+                        Vector3 point = i == 0 || i == screenPath.Count - 1 ? screenPath[i] :                //interpolation beetween closest corners 
+                            screenPath[i - 1] * 0.25f + screenPath[i] * 0.5f + screenPath[i + 1] * 0.25f;    //for smooth moving
+                        pathCorners[i] = m_MainCamera.ScreenToWorldPoint(point);
+                        pathCorners[i].z = 0f;
+                    }
+
+                    m_Movement.SetPath(pathCorners);
+
+                    dragFinger = false;
+                    screenPath.Clear();
+                }
+                else if (Vector3.Distance(screenPath[screenPath.Count - 1], Input.mousePosition) >= m_PathPixelsDistance)
+                    screenPath.Add(Input.mousePosition);
             }
         }
 
